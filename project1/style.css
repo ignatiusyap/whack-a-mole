@@ -1,0 +1,31 @@
+/* .hitboxcontainer {
+  display: grid;
+  justify-content: center;
+  align-items: 100vh;
+  grid-template: auto;
+  grid-template-rows: auto;
+}
+.main {
+  width: 50%;
+  height:45%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+} */
+/* .hitboxcontainer {
+  width: 50%;
+  height: 45%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+} */
+.hitboxcontainer {
+  height: 50px;
+  flex-basis: 50px; /*div will be fixed at this size*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  /*order: 1px solid gray;*/
+}
