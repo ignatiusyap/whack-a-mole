@@ -35,7 +35,7 @@ function gamestart() {
   gamestartbutton.id = "gamestart";
   gamestartbutton.innerText = "Start Game";
   document.querySelector("#displayername").appendChild(gamestartbutton);
-  document.querySelector("#gamestart").addEventListener("click", gamecycle);
+  document.querySelector("#gamestart").addEventListener("click", timerstart);
 }
 
 function timerstart() {
