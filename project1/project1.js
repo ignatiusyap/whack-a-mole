@@ -62,39 +62,51 @@ function gamestart() {
 }
 let count = 0;
 let timerstop = null;
+let timeIntervalforfunctions = 2000;
+//global variable needed to be declared for the timerstop variable to be overridden with timerstart function. Random mol is initialised using the set interval here.
 function timerstart() {
-  timerstop = setInterval(randomMole,2000);
+  timerstop = setInterval(randomMole, timeIntervalforfunctions);
+  // let timerstop = setInterval(() => {
+  //   randomMole;
+  // }, 2000);
+  // return timerstop; does not work
+  //wrapper function works as this variable is defined. if not it will go to the default window object.
 }
 
 function randomMole() {
-  count +=1;
-  if (count <4){
-  document.querySelector("#gameoptions").style.display = "none";
+  count += 1;
+  if (count < 10) {
+    document.querySelector("#gameoptions").style.display = "none";
 
-  const randomIndex = Math.floor(Math.random() * boxes);
-  const randombutton = `button${randomIndex}`;
-  document.querySelector(`#${randombutton}`).style.backgroundColor = "red";
-  //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
-  //console.log(randombutton);
-  document.querySelector("#gamestart").innerText = "Restart";
-  document.querySelector("#gamestart").addEventListener("click", restart);
-  console.log(count ,randombutton);
+    const randomIndex = Math.floor(Math.random() * boxes);
+    const randombutton = `button${randomIndex}`;
+    document.querySelector(`#${randombutton}`).style.backgroundColor = "red";
+    function changecolorofbutton() {
+      document.querySelector(`#${randombutton}`).style.backgroundColor = "";
+      console.log("IT WORKS");
+    }
+    setTimeout(changecolorofbutton, timeIntervalforfunctions);
+    //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
+    document.querySelector("#gamestart").innerText = "Restart";
+    document.querySelector("#gamestart").addEventListener("click", restart);
+    console.log(count, randombutton);
   } else {
     clearInterval(timerstop);
+    alert("Game has ended. Click refresh to play again!");
     console.log("count ended");
-  };
-  
   }
-  
+}
+// function to help the restart button
 function restart() {
   window.location.reload();
   //document.body.reset();
 }
+
 // create the list options for time
-  // const createTime = document.createElement("label");
-  // createTime.setAttribute("for","timer");
-  // createTime.innerText = "Choose time"
-  // const timeOptions = document.createElement("select");
-  // timeOptions.id = "timer";
-  // const time1 = document.createElement("option");
-  // time1.value = "60 seconds";
+// const createTime = document.createElement("label");
+// createTime.setAttribute("for","timer");
+// createTime.innerText = "Choose time"
+// const timeOptions = document.createElement("select");
+// timeOptions.id = "timer";
+// const time1 = document.createElement("option");
+// time1.value = "60 seconds";
