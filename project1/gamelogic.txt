@@ -9,7 +9,7 @@ DONE
 8. Endgame alert to tell the person to restart the game.
 
 Future plans supposedly if there is time and I am good enough
-1. Vary the no. of moles in the game with the difficulty
+1. Vary the no. of moles/timing in the game with the difficulty
 2. Change the button to an image of a hole.
 3. Include an animation fade of an image within the div for the random number generator. (This is means every one need to share the same random number generator for each instance of it)
 
