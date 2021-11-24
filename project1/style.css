@@ -29,3 +29,7 @@
   text-shadow: 1px 1px 1px black;
   /*order: 1px solid gray;*/
 }
+.buttons {
+  height: 2em;
+  width: 2em;
+}

@@ -63,6 +63,7 @@ function gamestart() {
 let count = 0;
 let timerstop = null;
 let timeIntervalforfunctions = 2000;
+let successfulhit = 0;
 //global variable needed to be declared for the timerstop variable to be overridden with timerstart function. Random mol is initialised using the set interval here.
 function timerstart() {
   timerstop = setInterval(randomMole, timeIntervalforfunctions);
@@ -76,23 +77,42 @@ function timerstart() {
 function randomMole() {
   count += 1;
   if (count < 10) {
+    //to hide the game options
     document.querySelector("#gameoptions").style.display = "none";
-
+    // This is the mole
     const randomIndex = Math.floor(Math.random() * boxes);
     const randombutton = `button${randomIndex}`;
     document.querySelector(`#${randombutton}`).style.backgroundColor = "red";
+    // This is what changes the button back to the orignal color
     function changecolorofbutton() {
       document.querySelector(`#${randombutton}`).style.backgroundColor = "";
-      console.log("IT WORKS");
+      console.log("IT WORKS. MIMICKING ONE MOLE");
     }
     setTimeout(changecolorofbutton, timeIntervalforfunctions);
     //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
+    //const hitmole = document.querySelector(".divbuttoncontainer");
+    const hitmole = document.querySelector(`#${randombutton}`);
+    function addEventmole() {
+      hitmole.addEventListener("mousedown", registerHit, { once: true });
+    }
+    addEventmole();
+
+    // Remove event handler is harder to use because the button tag needs to have an onclick function attached to it. SO expiring the addEventListener would be better.
+    // function removeEventmole() {
+    //   hitmole.removeEventListener("click", addEventmole);
+    //   console.log("This is event removal");
+    // }
+    //removeEventmole();
+    //setInterval(removeEventmole, timeIntervalforfunctions); click plus timer will proc it
+    //setTimeout(removeEventmole, timeIntervalforfunctions);
+    //console.log(successfulhit);
+    //Restart button at any point of time.
     document.querySelector("#gamestart").innerText = "Restart";
     document.querySelector("#gamestart").addEventListener("click", restart);
     console.log(count, randombutton);
   } else {
     clearInterval(timerstop);
-    alert("Game has ended. Click refresh to play again!");
+    //alert("Game has ended. Click refresh to play again!");
     console.log("count ended");
   }
 }
@@ -101,7 +121,15 @@ function restart() {
   window.location.reload();
   //document.body.reset();
 }
-
+function registerHit() {
+  const attri = this.style.backgroundColor; //.getAttribute("text-indent");
+  if (attri === "red") {
+    successfulhit += 1;
+    console.log("YESS HIT" + successfulhit + attri);
+  } else {
+    console.log("Not a hit");
+  }
+}
 // create the list options for time
 // const createTime = document.createElement("label");
 // createTime.setAttribute("for","timer");
