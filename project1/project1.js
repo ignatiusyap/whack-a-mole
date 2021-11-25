@@ -17,7 +17,7 @@ function creategame() {
   }
 }
 
-let boxes = 9;
+let boxes = 6;
 function createhitbox(boxes) {
   for (let i = 0; i < boxes; i++) {
     const hitbox = document.createElement("div");
@@ -32,10 +32,10 @@ function createhitbox(boxes) {
 }
 function creategridlist() {
   const createList = document.createElement("label");
-  createList.setAttribute("for", "grid-size");
+  createList.setAttribute("for", "difficulty");
   createList.innerText = "Choose difficulty";
   const listOptions = document.createElement("select");
-  listOptions.id = "grid-size";
+  listOptions.id = "difficulty";
   const grid3 = document.createElement("option");
   grid3.value = "Easy";
   grid3.innerText = "Easy";
@@ -59,7 +59,9 @@ function gamestart() {
   const labelforgrid = document.createElement("label");
 
   document.querySelector("#displayername").appendChild(gamestartbutton);
-  document.querySelector("#gamestart").addEventListener("click", timerstart);
+  document
+    .querySelector("#gamestart")
+    .addEventListener("click", timerstart, { once: true });
 }
 //let count = 0; setting this as the condition to end game makes it difficult to increase the frequency of the moles as that would end the game too soon and a finite number of moles so I have switch to a fixed time based game.
 let gameswitch = false;
@@ -73,7 +75,7 @@ function timerstart() {
   createhitbox(boxes);
   console.log(gameswitch);
   timerstop = setInterval(randomMole, timeIntervalforfunctions);
-  setTimeout(() => (gameswitch = true), 20000);
+  setTimeout(() => (gameswitch = true), 22000);
   // WHY MUST I PUT TIMEOUT IN THIS FUNCTION AND NOT CALL IT IN RANDOM MOLE????
   // let timerstop = setInterval(() => {
   //   randomMole;
@@ -81,20 +83,29 @@ function timerstart() {
   // return timerstop; does not work
   //wrapper function works as this variable is defined. if not it will go to the default window object.
 }
-
+const tracker = [];
 function randomMole() {
   //count += 1;
+
   if (gameswitch === false) {
     //to hide the game options
     document.querySelector("#gameoptions").style.display = "none";
     // This is the mole
     const randomIndex = Math.floor(Math.random() * boxes);
-    const randombutton = `button${randomIndex}`;
+    const randombutton = `button${tracker[tracker.length - 1]}`;
+    tracker.push(randomIndex);
+    while (tracker[tracker.length - 1] === tracker[tracker.length - 2]) {
+      const randomIndex = Math.floor(Math.random() * boxes);
+      const randombutton = `button${randomIndex}`;
+      tracker.push(randomIndex);
+      //console.log("Ooooooooo", tracker);
+    }
+    // if loop used here the loop will end prematurely and run the same number
     document.querySelector(`#${randombutton}`).style.backgroundColor = "red";
     // This is what changes the button back to the orignal color
     function changecolorofbutton() {
       document.querySelector(`#${randombutton}`).style.backgroundColor = "";
-      console.log("IT WORKS. MIMICKING ONE MOLE" + gameswitch);
+      console.log("IT WORKS. MIMICKING ONE MOLE");
     }
     setTimeout(changecolorofbutton, timeIntervalforfunctions);
     //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
@@ -118,7 +129,7 @@ function randomMole() {
     //Restart button at any point of time.
     document.querySelector("#gamestart").innerText = "Restart";
     document.querySelector("#gamestart").addEventListener("click", restart);
-    console.log(gameswitch, randombutton);
+    //console.log(gameswitch, randombutton, tracker);
   } else {
     clearInterval(timerstop);
     //alert("Game has ended. Click refresh to play again!");
