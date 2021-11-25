@@ -144,17 +144,19 @@ function randomMole() {
       //console.log("Ooooooooo", tracker);
     }
     // if loop used here the loop will end prematurely and run the same number
-    document.querySelector(`#${randombutton}`).className = "diglettAppear";
+    document.querySelector(`#${randombutton}`).classList.add("diglettAppear");
     // This is what changes the button back to the orignal color
     function changecolorofbutton() {
-      document.querySelector(`#${randombutton}`).className = "diglettDisappear";
+      document
+        .querySelector(`#${randombutton}`)
+        .classList.remove("diglettAppear");
       console.log("IT WORKS. MIMICKING ONE MOLE");
     }
     setTimeout(changecolorofbutton, timeIntervalforfunctions);
     //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
     //const hitmole = document.querySelector(".divbuttoncontainer");
     const hitmole = document.querySelectorAll(".buttons");
-
+    console.log("This is hit mole" + hitmole);
     function addEventmole() {
       for (const each of hitmole) {
         each.addEventListener("mousedown", registerHit, { once: true });
@@ -187,8 +189,9 @@ function restart() {
   //document.body.reset();
 }
 function registerHit() {
-  const attri = this.style.backgroundColor; //.getAttribute("text-indent");
-  if (attri === "red") {
+  const attri = this.className; //.getAttribute("text-indent");
+  console.log(attri);
+  if (attri === "buttons diglettAppear") {
     successfulhit += 1;
     scoreboard();
     console.log("YESS HIT" + successfulhit + attri);
