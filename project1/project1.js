@@ -7,16 +7,36 @@ function creategame() {
   const playername = document.querySelector("#playername").value;
   if (playername !== "") {
     document.querySelector("#createplayerdiv").style.display = "none";
+    selectionDifficulty();
     const displayname = document.createElement("h3");
     displayname.innerText = `Player name: ${playername}`;
     document.querySelector("#displayername").append(displayname);
-    selectionDifficulty();
+    scoreboard();
+    livesAvail();
     //creategridlist();
     //createhitbox(boxes);
     gamestart();
   } else {
     alert("Input a name please");
   }
+}
+
+function scoreboard() {
+  const score = document.querySelector("#highscore");
+  score.textContent = `Moles boinked: ${successfulhit}`;
+}
+
+function livesAvail() {
+  const lives = document.querySelector("#lives");
+  lives.textContent = `Lives remaining: ${lifeCounter}`;
+}
+function countDownTimer() {
+  let timeFunction = setInterval(() => {
+    time -= 1;
+    const timecount = document.querySelector("#timer");
+    timecount.textContent = `Timer ${time}`;
+  }, 1000);
+  return timeFunction;
 }
 
 let boxes = 6;
@@ -61,7 +81,7 @@ function gamestart() {
   const gamestartbutton = document.createElement("button");
   gamestartbutton.id = "gamestart";
   gamestartbutton.innerText = "Start Game";
-  document.querySelector("#displayername").appendChild(gamestartbutton);
+  document.querySelector("#initializationofgame").appendChild(gamestartbutton);
   document
     .querySelector("#gamestart")
     .addEventListener("click", timerstart, { once: true });
@@ -72,6 +92,7 @@ let timerstop = null;
 let timeIntervalforfunctions = "";
 let successfulhit = 0;
 let lifeCounter = 3;
+let time = 20;
 
 function randomTime(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -83,9 +104,9 @@ function selectionDifficulty() {
     case 0:
       return (timeIntervalforfunctions = randomTime(1500, 2000));
     case 1:
-      return (timeIntervalforfunctions = randomTime(1000, 1500));
-    case 2:
       return (timeIntervalforfunctions = randomTime(800, 1000));
+    case 2:
+      return (timeIntervalforfunctions = randomTime(500, 800));
     case 3:
       return (timeIntervalforfunctions = randomTime(50, 400));
   }
@@ -97,7 +118,7 @@ function timerstart() {
   console.log(gameswitch);
   timerstop = setInterval(randomMole, timeIntervalforfunctions);
   setTimeout(() => (gameswitch = true), 22000);
-
+  setTimeout(countDownTimer, 2000);
   // WHY MUST I PUT TIMEOUT IN THIS FUNCTION AND NOT CALL IT IN RANDOM MOLE????
   // let timerstop = setInterval(() => {
   //   randomMole;
@@ -140,7 +161,6 @@ function randomMole() {
       }
     }
     addEventmole();
-
     // Remove event handler is harder to use because the button tag needs to have an onclick function attached to it. SO expiring the addEventListener would be better.
     // function removeEventmole() {
     //   hitmole.removeEventListener("click", addEventmole);
@@ -156,7 +176,8 @@ function randomMole() {
     //console.log(gameswitch, randombutton, tracker);
   } else {
     clearInterval(timerstop);
-    //alert("Game has ended. Click refresh to play again!");
+    document.querySelector("#timer").style.display = "none";
+    alert("Game has ended. Click refresh to play again!");
     console.log("count ended");
   }
 }
@@ -169,12 +190,14 @@ function registerHit() {
   const attri = this.style.backgroundColor; //.getAttribute("text-indent");
   if (attri === "red") {
     successfulhit += 1;
+    scoreboard();
     console.log("YESS HIT" + successfulhit + attri);
   } else {
     lifeCounter -= 1;
+    livesAvail();
     if (lifeCounter === 0) {
       clearInterval(timerstop);
-      alert("You ran out of chances!");
+      alert("You ran out of lives!");
     }
     console.log("Not a hit", lifeCounter);
   }
