@@ -71,6 +71,7 @@ let gameswitch = false;
 let timerstop = null;
 let timeIntervalforfunctions = "";
 let successfulhit = 0;
+let lifeCounter = 3;
 
 function randomTime(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -131,10 +132,12 @@ function randomMole() {
     setTimeout(changecolorofbutton, timeIntervalforfunctions);
     //document.querySelector(`#${randombutton}`).addEventListener("click",positivehit)
     //const hitmole = document.querySelector(".divbuttoncontainer");
-    const hitmole = document.querySelector(`#${randombutton}`);
+    const hitmole = document.querySelectorAll(".buttons");
 
     function addEventmole() {
-      hitmole.addEventListener("mousedown", registerHit, { once: true });
+      for (const each of hitmole) {
+        each.addEventListener("mousedown", registerHit, { once: true });
+      }
     }
     addEventmole();
 
@@ -168,6 +171,11 @@ function registerHit() {
     successfulhit += 1;
     console.log("YESS HIT" + successfulhit + attri);
   } else {
-    console.log("Not a hit");
+    lifeCounter -= 1;
+    if (lifeCounter === 0) {
+      clearInterval(timerstop);
+      alert("You ran out of chances!");
+    }
+    console.log("Not a hit", lifeCounter);
   }
 }
