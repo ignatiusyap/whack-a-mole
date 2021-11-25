@@ -23,7 +23,7 @@ function creategame() {
 
 function scoreboard() {
   const score = document.querySelector("#highscore");
-  score.textContent = `Moles boinked: ${successfulhit}`;
+  score.textContent = `Digletts boinked: ${successfulhit}`;
 }
 
 function livesAvail() {
@@ -144,10 +144,10 @@ function randomMole() {
       //console.log("Ooooooooo", tracker);
     }
     // if loop used here the loop will end prematurely and run the same number
-    document.querySelector(`#${randombutton}`).style.backgroundColor = "red";
+    document.querySelector(`#${randombutton}`).className = "diglettAppear";
     // This is what changes the button back to the orignal color
     function changecolorofbutton() {
-      document.querySelector(`#${randombutton}`).style.backgroundColor = "";
+      document.querySelector(`#${randombutton}`).className = "diglettDisappear";
       console.log("IT WORKS. MIMICKING ONE MOLE");
     }
     setTimeout(changecolorofbutton, timeIntervalforfunctions);
@@ -198,7 +198,8 @@ function registerHit() {
     if (lifeCounter === 0) {
       clearInterval(timerstop);
       alert("You ran out of lives!");
+      window.location.reload();
     }
-    console.log("Not a hit", lifeCounter);
+    //console.log("Not a hit", lifeCounter);
   }
 }
