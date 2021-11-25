@@ -28,6 +28,7 @@ body {
   height: 8em;
   width: 8em;
   background-color: transparent;
+  border: none;
 }
 #container {
   align-items: center;
@@ -81,6 +82,7 @@ body {
   height: 8em;
   width: 8em;
   background-color: transparent;
+  border: none;
 }
 /* .diglettDisappear {
   background-image: url("diglett.png");
