@@ -2,6 +2,7 @@
 
 document.querySelector("#submitbutton").addEventListener("click", creategame);
 creategridlist();
+
 function creategame() {
   const playername = document.querySelector("#playername").value;
   if (playername !== "") {
@@ -9,6 +10,7 @@ function creategame() {
     const displayname = document.createElement("h3");
     displayname.innerText = `Player name: ${playername}`;
     document.querySelector("#displayername").append(displayname);
+    selectionDifficulty();
     //creategridlist();
     //createhitbox(boxes);
     gamestart();
@@ -45,9 +47,12 @@ function creategridlist() {
   const grid5 = document.createElement("option");
   grid5.value = "Hard";
   grid5.innerText = "Hard";
+  const grid6 = document.createElement("option");
+  grid6.value = "Are you serious? -.-";
+  grid6.innerText = "Are you serious? -.-";
   document.querySelector("#gameoptions").appendChild(createList);
   document.querySelector("#gameoptions").appendChild(listOptions);
-  listOptions.append(grid3, grid4, grid5);
+  listOptions.append(grid3, grid4, grid5, grid6);
 }
 // After player set the options, the options are removed from the panel.
 //
@@ -56,8 +61,6 @@ function gamestart() {
   const gamestartbutton = document.createElement("button");
   gamestartbutton.id = "gamestart";
   gamestartbutton.innerText = "Start Game";
-  const labelforgrid = document.createElement("label");
-
   document.querySelector("#displayername").appendChild(gamestartbutton);
   document
     .querySelector("#gamestart")
@@ -66,9 +69,26 @@ function gamestart() {
 //let count = 0; setting this as the condition to end game makes it difficult to increase the frequency of the moles as that would end the game too soon and a finite number of moles so I have switch to a fixed time based game.
 let gameswitch = false;
 let timerstop = null;
-let timeIntervalforfunctions = 2000;
+let timeIntervalforfunctions = "";
 let successfulhit = 0;
-function totalTime() {}
+
+function randomTime(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function selectionDifficulty() {
+  const selectedOption = document.querySelector("#difficulty").selectedIndex;
+  switch (selectedOption) {
+    case 0:
+      return (timeIntervalforfunctions = randomTime(1500, 2000));
+    case 1:
+      return (timeIntervalforfunctions = randomTime(1000, 1500));
+    case 2:
+      return (timeIntervalforfunctions = randomTime(800, 1000));
+    case 3:
+      return (timeIntervalforfunctions = randomTime(50, 400));
+  }
+}
 
 //global variable needed to be declared for the timerstop variable to be overridden with timerstart function. Random mol is initialised using the set interval here.
 function timerstart() {
@@ -76,6 +96,7 @@ function timerstart() {
   console.log(gameswitch);
   timerstop = setInterval(randomMole, timeIntervalforfunctions);
   setTimeout(() => (gameswitch = true), 22000);
+
   // WHY MUST I PUT TIMEOUT IN THIS FUNCTION AND NOT CALL IT IN RANDOM MOLE????
   // let timerstop = setInterval(() => {
   //   randomMole;
@@ -150,11 +171,3 @@ function registerHit() {
     console.log("Not a hit");
   }
 }
-// create the list options for time
-// const createTime = document.createElement("label");
-// createTime.setAttribute("for","timer");
-// createTime.innerText = "Choose time"
-// const timeOptions = document.createElement("select");
-// timeOptions.id = "timer";
-// const time1 = document.createElement("option");
-// time1.value = "60 seconds";
