@@ -1,0 +1,33 @@
+1.Create game function HIDES the original submit button and input box and replaces it with the player name at the top of the game
+2. Createhitbox function creates a div container containing a button each. This function was created so that I can change the grid size depending on the player choice of difficulty. Player choice of difficulty is a drop down list to be added later on.
+3. Create gridlist function makes the list where the player can choose the difficulty. IT is supposed to have a perfect square value tagged to each difficulty. Of which NUMBER 2 function will read the variable and change the grid size accordingly
+4. Gamestart function creates the start button with an event listener that is supposed to start the game
+5. Timer start is where the random mole(function) will be generated and that the count down of the game starts until it ends
+DONE
+6. Timerend function is supposed to execute clear internal to kill the random mole function so the game ends. The criteria for timerend function is the number of times timerstart has ran. DONE
+7. Count click function is supposed to return a true value every time a click is registered on the random mole. The value will be displayed in real time.
+8. Endgame alert to tell the person to restart the game.
+
+Future plans supposedly if there is time and I am good enough
+1. Vary the no. of moles/timing in the game with the difficulty
+2. Change the button to an image of a hole.
+3. Include an animation fade of an image within the div for the random number generator. (This is means every one need to share the same random number generator for each instance of it)
+
+Game logic
+1.Random button generator is 2sec.
+2.Change colour happens on 2 sec.
+3.Change back to original colour 2 sec
+
+
+1 - N
+2 - N
+3 - 1,2
+4 - 3
+5 - 1,2
+6 - 3
+7 - 1,2
+8 - 3
+
+If (){
+registerHit
+}
